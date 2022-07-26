@@ -1,6 +1,12 @@
+#container {
+    display: flex;
+    justify-content: space-between;
+}
+
 #table-section {
     float: left;
     margin-left: 10rem;
+    width: 100%;
 }
 
 #days {
@@ -8,7 +14,7 @@
     margin: 0.5rem 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(7, 6rem);
+    grid-template-columns: repeat(7, 7.5rem);
     justify-content: center;
     gap: 0.5rem;
 }
@@ -30,8 +36,8 @@
     margin: 0 0;
     padding: 0 0 0 0;
     display: grid;
-    grid-template-columns: repeat(7, 6rem);
-    grid-template-rows: repeat(6, 6rem);
+    grid-template-columns: repeat(7, 7.5rem);
+    grid-template-rows: repeat(6, 7.5rem);
     justify-content: center;
     gap: 0.5rem;
 }
@@ -58,11 +64,6 @@ body {
     user-select: none;
 }
 
-#container {
-    display: flex;
-    justify-content: space-between;
-}
-
 #people-section {
     justify-content: center;
     margin-right: 15rem;
@@ -77,15 +78,32 @@ body {
 
 .people-list li {
     margin-bottom: 3rem;
+    width: 120%;
+
+}
+
+.person-div {
+    text-align: center;
+    background-color: #c2ece6;
+    margin-bottom: 1rem;
+    border-radius: 10%;
+    padding: 1rem 1rem 1rem 1rem;
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.34);
 }
 
 div img {
-    border-radius: 50%;
+    border-radius: 10%;
     width: 150px;
+    box-shadow: 2.5px 2.5px 7.5px 2.5px rgba(0, 0, 0, 0.24);
+}
+
+div h2 {
+    color: #20490d;
+
 }
 
 .h1 {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 h2 {
@@ -110,4 +128,8 @@ p {
 
 #schedule-date {
     text-align: center;
+}
+
+body {
+
 }

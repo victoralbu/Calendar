@@ -114,3 +114,4 @@ function surfPreviousMonth() {
 
 arrowRightElement.addEventListener("click", surfNextMonth);
 arrowLeftElement.addEventListener("click", surfPreviousMonth);
+
