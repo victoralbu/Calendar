@@ -1,12 +1,20 @@
+html {
+    overflow-y: scroll;
+}
+
+.swal html {
+    overflow-y: scroll;
+}
+
+
 #container {
     display: flex;
     justify-content: space-between;
 }
 
 #table-section {
-    float: left;
-    margin-left: 10rem;
     width: 100%;
+    margin-left: 3rem;
 }
 
 #days {
@@ -62,23 +70,26 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    padding: 0 !important;
+    margin: 0;
 }
 
 #people-section {
-    justify-content: center;
-    margin-right: 15rem;
-    margin-left: 3rem;
+    margin-right: 5rem;
+    margin-left: 1rem;
 }
+
 
 .people-list {
     list-style: none;
-    text-align: center;
+    justify-content: center;
+    width: 15rem;
     padding: 0 10rem;
 }
 
 .people-list li {
     margin-bottom: 3rem;
-    width: 120%;
+    width: 15rem;
 
 }
 
@@ -99,11 +110,25 @@ div img {
 
 div h2 {
     color: #20490d;
-
 }
 
 .h1 {
+    font-size: 2.5rem;
+    width: 300px;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    word-spacing: -2px;
+    color: rgb(212, 187, 255);
+    background-color: rgb(255, 255, 255);
+    text-shadow: rgb(82, 0, 245) 2px 3px 2px;
+}
+
+.h1-schedule {
     font-size: 2rem;
+    text-align: center;
 }
 
 h2 {
@@ -119,17 +144,157 @@ p {
 
 #h1-and-arrows {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 #arrows {
-    margin-top: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5rem 0 13rem;
+    margin-left: 5rem;
+
 }
 
-#schedule-date {
-    text-align: center;
+#arrow-left {
+    height: 50px;
+    width: 50px;
+    margin-left: 2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Monospace, serif;
+    border-radius: 0.5rem;
+    text-shadow: rgb(82, 0, 245) 2px 3px 2px;
+    color: rgb(212, 187, 255);
+    background-color: white;
+    border: none;
 }
 
-body {
+@keyframes blink {
+    50% {
+        opacity: 10%;
+    }
+}
 
+@keyframes grow {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(2);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+#arrow-right {
+    height: 50px;
+    width: 50px;
+    margin-right: 2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Monospace, serif;
+    border-radius: 0.5rem;
+    background-color: white;
+    border: none;
+    text-shadow: rgb(82, 0, 245) -2px 3px 2px;
+    color: rgb(212, 187, 255);
+
+}
+
+#arrow-right:hover {
+
+    animation: grow;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 3s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 3s;
+    -webkit-animation-name: grow;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: grow;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+
+    transition-property: -moz-transform;
+    transition-duration: 1s;
+    animation-name: grow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+#arrow-left:hover {
+
+    animation: grow;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 3s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 3s;
+    -webkit-animation-name: grow;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: grow;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+
+    transition-property: -moz-transform;
+    transition-duration: 1s;
+    animation-name: grow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+#button-insert {
+    font-size: 2rem;
+    padding: 0.5rem 7rem 1rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid gray;
+    background-color: #d6f6eb;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+#button-insert:hover {
+    animation: shake 1s;
+    animation-iteration-count: infinite;
+    background-color: #c0e5da;
 }

@@ -1,2 +1,1 @@
-- inainte de orice form submit sa se afiseze programarile din ziua curenta (daca exista)
 - o tona de css

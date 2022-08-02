@@ -66,6 +66,8 @@ function surfNextMonth() {
     let k = 1;
     for (let i = 0; i < numberOfDaysInNextMonth + startingDayOfNextMonth; i++) {
         liElementCollection[i].style.visibility = "visible";
+        if (liElementCollection[i].style.backgroundColor === "purple")
+            liElementCollection[i].style.backgroundColor = "#C1BBF7FF";
         if (i >= startingDayOfNextMonth) {
             liElementCollection.item(i).innerText = k.toString();
             liElementCollection[i].style.pointerEvents = "auto";
@@ -102,13 +104,14 @@ function surfPreviousMonth() {
     let k = 1;
     for (let i = 0; i < numberOfDaysInPreviousMonth + startingDayOfPreviousMonth; i++) {
         liElementCollection[i].style.visibility = "visible";
+        if (liElementCollection[i].style.backgroundColor === "purple")
+            liElementCollection[i].style.backgroundColor = "#C1BBF7FF";
         if (i >= startingDayOfPreviousMonth) {
             liElementCollection.item(i).innerText = k.toString();
             liElementCollection[i].style.pointerEvents = "auto";
             k++;
         }
     }
-
     monthElement.innerText = `${previousMonth} ${year}`;
 }
 
