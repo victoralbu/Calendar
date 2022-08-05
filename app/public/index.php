@@ -89,50 +89,57 @@ session_start();
         </ol>
     </section>
     <section id="people-section">
-        <h1 id="schedule-date" class="h1-schedule">Schedule for January 21, 2022</h1>
+        <div class="navigation">
+            <h1 id="schedule-date" class="h1-schedule">Schedule for January 21, 2022</h1>
+            <a class="button-logout" href="destroySession.php">
+                <img class="img-logout" src="images/avatar1.png">
+                <div class="logout">LOGOUT</div>
+            </a>
+        </div>
         <div>
-        <ol class="people-list">
-            <li>
-                <?php
-                function getAppointments($dateClicked)
-                {
-                    $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-                    $stmt = $pdo->prepare("SELECT * FROM appointments
+            <ol class="people-list">
+                <li>
+                    <?php
+                    function getAppointments($dateClicked)
+                    {
+                        $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+                        $stmt = $pdo->prepare("SELECT * FROM appointments
                                                  INNER JOIN users ON appointments.id_user = users.id
                                                  INNER JOIN locations ON appointments.location = locations.id
                                                  WHERE appointments.date  = :dateClicked");
-                    $stmt->bindParam(':dateClicked', $dateClicked);
-                    $stmt->execute();
-                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                    while ($row = $stmt->fetch()) {
-                        $time_start = new DateTime($row["time_start"]);
-                        $time_end = new DateTime($row["time_end"]);
-                        echo '<div class="person-div">
+                        $stmt->bindParam(':dateClicked', $dateClicked);
+                        $stmt->execute();
+                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        while ($row = $stmt->fetch()) {
+                            $time_start = new DateTime($row["time_start"]);
+                            $time_end = new DateTime($row["time_end"]);
+                            echo '<div class="person-div">
                     <img src="images/avatar1.png" alt="firstImage">
-                    <p>' . $row["first_name"] . ' ' . $row["last_name"] . '</p>
+                    <p class="nameOnAppointment">' . $row["first_name"] . ' ' . $row["last_name"] . '</p>
                     <h2>' . $time_start->format('H:i') . ' - ' . $time_end->format('H:i') . '</h2>
                    <h2>At: ' . $row["address"] . '</h2>
                </div>';
+                        }
                     }
-                }
 
-                if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['date'])) {
-                    $dateClicked = htmlspecialchars($_GET["date"]);
-                    $dateArray = explode("-", $dateClicked);
-                    $dateClicked = strtotime($dateClicked);
-                    $dateClicked = date("Y-m-d", $dateClicked);
+                    //GET APPOINTMENTS
+                    if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['date'])) {
+                        $dateClicked = htmlspecialchars($_GET["date"]);
+                        $dateArray = explode("-", $dateClicked);
+                        $dateClicked = strtotime($dateClicked);
+                        $dateClicked = date("Y-m-d", $dateClicked);
 
-                    if (checkdate($dateArray[1], $dateArray[2], $dateArray[0])) {
-                        getAppointments($dateClicked);
+                        if (checkdate($dateArray[1], $dateArray[2], $dateArray[0])) {
+                            getAppointments($dateClicked);
+                        } else {
+                            echo "eroare parametrii url in php";
+                        }
                     } else {
-                        echo "eroare parametrii url in php";
+                        getAppointments(date("Y-m-d"));
                     }
-                } else {
-                    getAppointments(date("Y-m-d"));
-                }
-                ?>
-            </li>
-        </ol>
+                    ?>
+                </li>
+            </ol>
         </div>
     </section>
 </section>
@@ -142,6 +149,9 @@ session_start();
 </form>
 
 <?php
+if (!$_SESSION['username'] ?: false) {
+    header("Location: /login.php");
+}
 function getStartTimeEntries($chosenDate)
 {
     $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -152,18 +162,12 @@ function getStartTimeEntries($chosenDate)
     return $stmt->fetchAll();
 }
 
+
+//POST APPOINTMENTS
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstName = $_POST['first-name-field'];
-    $lastName = $_POST['last-name-field'];
     $dateInSwal = $_POST['date-field-insert-form'];
     $timeStartInSwal = $_POST['time-start-in-swal-field'];
     $locationInSwal = $_POST['location-in-swal-field'];
-
-    $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    $stmt = $pdo->prepare("insert into users (first_name, last_name)
-                values (:firstName, :lastName);");
-    $stmt->bindParam(":firstName", $firstName);
-    $stmt->bindParam(":lastName", $lastName);
 
     $startTimeEntriesInChosenDate = getStartTimeEntries($dateInSwal);
     $auxArray = array();
@@ -172,12 +176,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $startTimeEntriesInChosenDate = $auxArray;
 
-    if (!in_array(strVal(date("H:i:s", strtotime($timeStartInSwal))), $startTimeEntriesInChosenDate) && date("Y-m-d",strtotime($dateInSwal)) >= date("Y-m-d")) {
-        $stmt->execute();
-        $stmt = $pdo->prepare("SELECT MAX(id) FROM users");
-        $stmt->execute();
-        $maxId = $stmt->fetch();
-        $maxId = $maxId[0];
+    if ((!in_array(strVal(date("H:i:s", strtotime($timeStartInSwal))), $startTimeEntriesInChosenDate) && date("Y-m-d", strtotime($dateInSwal)) >= date("Y-m-d")) || (!$startTimeEntriesInChosenDate && (date("Y-m-d", strtotime($dateInSwal)) >= date("Y-m-d")))) {
+        $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
         $stmt = $pdo->prepare("SELECT id FROM locations WHERE address = :address");
         $stmt->bindParam(":address", $locationInSwal);
@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $timeEnd = date('H:i', $timeEnd);
         $timeStartInSwal = date('H:i', $timeStartInSwal);
         $stmt = $pdo->prepare("insert into appointments (id_user, date, time_start, time_end, location) values (:idUser, :selectedDate, :timeStart, :timeEnd, :location)");
-        $stmt->bindParam(":idUser", $maxId);
+        $stmt->bindParam(":idUser", $_SESSION['id']);
         $stmt->bindParam(":selectedDate", $dateInSwal);
         $stmt->bindParam(":timeStart", $timeStartInSwal);
         $stmt->bindParam(":timeEnd", $timeEnd);
@@ -201,8 +201,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         header("Refresh:0");
     } else {
-        echo "<script>alert('Select an available hour!');</script>";
+        echo "<script>
+         Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Select an available hour, today or in the future!',
+         }).then(function() {
+                    window.location.replace('http://localhost:8080');
+                   });
+       </script>";
     }
+
 }
 ?>
 

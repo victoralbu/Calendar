@@ -1,13 +1,6 @@
-function alert() {
-    let month = document.getElementById(("month")).innerText.slice(0, -5);
-    let year = document.getElementById(("month")).innerText.split(" ")[1];
-    document.getElementById("date-field").value = `${year}-${moment().month(month).format("M")}-${this.innerText}`;
-    document.getElementById("schedule-date").innerText = `Schedule for ${month} ${this.innerText}, ${year}`;
-    document.getElementById("button-submit").click();
-}
-
 let liElementCollection = document.getElementById("table").getElementsByTagName("li");
 let buttonInsertElement = document.getElementById("button-insert");
+let pNameOnAppointmentElements = document.querySelectorAll(".nameOnAppointment");
 
 for (const li of liElementCollection) {
     li.addEventListener("click", alert);
@@ -72,18 +65,13 @@ if (!document.URL.includes('=')) {
     }
 }
 
-
-let address1 = "Zizinului 14, Brasov";
-let address2 = "Grivitei 3, Brasov";
-let address3 = "Turnului 17, Bucuresti";
-var inputOptionsPromise = new Promise(function (resolve) {
-    resolve({
-        '#FF0000': address1,
-        '#00FF00': address2,
-        '#0000FF': address3
-    })
-})
-
+function alert() {
+    let month = document.getElementById(("month")).innerText.slice(0, -5);
+    let year = document.getElementById(("month")).innerText.split(" ")[1];
+    document.getElementById("date-field").value = `${year}-${moment().month(month).format("M")}-${this.innerText}`;
+    document.getElementById("schedule-date").innerText = `Schedule for ${month} ${this.innerText}, ${year}`;
+    document.getElementById("button-submit").click();
+}
 
 function insertPopup() {
     Swal.fire({
@@ -99,8 +87,6 @@ function insertPopup() {
             Swal.fire({
                 title: 'Fill all the fields!',
                 html: `<form id="form-insert" method="POST">
-                        <input type="text" id="first-name-field" name="first-name-field" class="swal2-input" placeholder="First name" required>
-                        <input type="text" id="last-name-field" name="last-name-field" class="swal2-input" placeholder="Last name" required>
                         <input type="text" id="date-field-insert-form" name="date-field-insert-form" style="display: none;">
                         <select id="time-start-in-swal-field" class="swal2-select" style="text-align: center" name="time-start-in-swal-field">  
                                 <option value="8:00">8:00</option>
@@ -141,4 +127,6 @@ function insertPopup() {
         }
     })
 }
+
+
 

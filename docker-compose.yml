@@ -11,8 +11,10 @@ services:
         build:
           context: .
           dockerfile: PHP.Dockerfile
+        extra_hosts:
+          - host.docker.internal:host-gateway
         volumes:
-            - ./app:/app
+          - ./app:/app
     mysql:
         image: mariadb:latest
         environment:
