@@ -110,7 +110,6 @@ session_start();
                         $stmt->bindParam(':dateClicked', $dateClicked);
                         $stmt->execute();
                         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                        if ($stmt->fetch()) {
                             while ($row = $stmt->fetch()) {
                                 $time_start = new DateTime($row["time_start"]);
                                 $time_end = new DateTime($row["time_end"]);
@@ -121,9 +120,7 @@ session_start();
                    <h2>At: ' . $row["address"] . '</h2>
                </div>';
                             }
-                        } else {
-                            echo "<h2>NO APPOINTMENTS!</h2>";
-                        }
+
                     }
 
                     //GET APPOINTMENTS
