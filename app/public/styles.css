@@ -327,6 +327,7 @@ p {
     opacity: 0;
     transition: opacity .45s;
     -webkit-transition: opacity .35s;
+    text-align: center;
 
 }
 
@@ -344,7 +345,7 @@ p {
 }
 
 .button-logout:hover {
-    width: 100px;
+    width: 100%;
 }
 
 .button-logout:hover .logout{
@@ -363,4 +364,5 @@ p {
     min-height:850px;
     height:850px;
     max-height:100%;
+    max-width: 550px;
 }
