@@ -96,7 +96,7 @@ session_start();
                 <div class="logout">LOGOUT</div>
             </a>
         </div>
-        <div>
+        <div class="scrollable-div">
             <ol class="people-list">
                 <li>
                     <?php
@@ -110,15 +110,19 @@ session_start();
                         $stmt->bindParam(':dateClicked', $dateClicked);
                         $stmt->execute();
                         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                        while ($row = $stmt->fetch()) {
-                            $time_start = new DateTime($row["time_start"]);
-                            $time_end = new DateTime($row["time_end"]);
-                            echo '<div class="person-div">
+                        if ($stmt->fetch()) {
+                            while ($row = $stmt->fetch()) {
+                                $time_start = new DateTime($row["time_start"]);
+                                $time_end = new DateTime($row["time_end"]);
+                                echo '<div class="person-div">
                     <img src="images/avatar1.png" alt="firstImage">
                     <p class="nameOnAppointment">' . $row["first_name"] . ' ' . $row["last_name"] . '</p>
                     <h2>' . $time_start->format('H:i') . ' - ' . $time_end->format('H:i') . '</h2>
                    <h2>At: ' . $row["address"] . '</h2>
                </div>';
+                            }
+                        } else {
+                            echo "<h2>NO APPOINTMENTS!</h2>";
                         }
                     }
 
@@ -152,11 +156,14 @@ session_start();
 if (!$_SESSION['username'] ?: false) {
     header("Location: /login.php");
 }
-function getStartTimeEntries($chosenDate)
+function getStartTimeEntries($chosenDate, $chosenLocation)
 {
     $pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    $stmt = $pdo->prepare("SELECT time_start FROM appointments WHERE date = :chosenDate");
+    $stmt = $pdo->prepare("SELECT time_start, location FROM appointments
+                            INNER JOIN  locations l on appointments.location = l.id
+                            WHERE date = :chosenDate AND address = :chosenLocation");
     $stmt->bindParam(":chosenDate", $chosenDate);
+    $stmt->bindParam(":chosenLocation", $chosenLocation);
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     return $stmt->fetchAll();
@@ -169,10 +176,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $timeStartInSwal = $_POST['time-start-in-swal-field'];
     $locationInSwal = $_POST['location-in-swal-field'];
 
-    $startTimeEntriesInChosenDate = getStartTimeEntries($dateInSwal);
+    $startTimeEntriesInChosenDate = getStartTimeEntries($dateInSwal, $locationInSwal);
     $auxArray = array();
     for ($i = 0; $i < sizeof($startTimeEntriesInChosenDate); $i++) {
         $auxArray[] = $startTimeEntriesInChosenDate[$i]['time_start'];
+
     }
     $startTimeEntriesInChosenDate = $auxArray;
 

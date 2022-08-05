@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:400);
 
 html {
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .swal html {
@@ -353,4 +353,14 @@ p {
 
 .button-logout {
     text-decoration: none;
+}
+
+
+.scrollable-div {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    min-height:850px;
+    height:850px;
+    max-height:100%;
 }
