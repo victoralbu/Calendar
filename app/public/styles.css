@@ -366,3 +366,7 @@ p {
     max-height:100%;
     max-width: 550px;
 }
+
+.scrollable-div::-webkit-scrollbar {
+    display: none;
+}
