@@ -1,6 +1,9 @@
 <?php
 ob_start();
 session_start();
+if (!empty($_SESSION['firstname'])) {
+    header("Location: /index.php");
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -138,7 +141,8 @@ function hashPwd($pwd)
     return password_hash($pwd, PASSWORD_BCRYPT, $options);
 }
 
-function setSessionAndRedirect($username,$firstname,$lastname, $id){
+function setSessionAndRedirect($username, $firstname, $lastname, $id)
+{
     $_SESSION['username'] = $username;
     $_SESSION['firstname'] = $firstname;
     $_SESSION['lastname'] = $lastname;
@@ -146,6 +150,7 @@ function setSessionAndRedirect($username,$firstname,$lastname, $id){
     header("Location: /index.php");
     exit();
 }
+
 ?>
 <script src="login.js"></script>
 </body>

@@ -110,16 +110,16 @@ session_start();
                         $stmt->bindParam(':dateClicked', $dateClicked);
                         $stmt->execute();
                         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                            while ($row = $stmt->fetch()) {
-                                $time_start = new DateTime($row["time_start"]);
-                                $time_end = new DateTime($row["time_end"]);
-                                echo '<div class="person-div">
+                        while ($row = $stmt->fetch()) {
+                            $time_start = new DateTime($row["time_start"]);
+                            $time_end = new DateTime($row["time_end"]);
+                            echo '<div class="person-div">
                     <img src="images/avatar1.png" alt="firstImage">
                     <p class="nameOnAppointment">' . $row["first_name"] . ' ' . $row["last_name"] . '</p>
                     <h2>' . $time_start->format('H:i') . ' - ' . $time_end->format('H:i') . '</h2>
                    <h2>At: ' . $row["address"] . '</h2>
                </div>';
-                            }
+                        }
 
                     }
 

@@ -12,7 +12,7 @@ html {
 #container {
     display: flex;
     justify-content: space-around;
-    background-color: rgb(24,38,59);
+    background-color: rgb(24, 38, 59);
 }
 
 #table-section {
@@ -74,7 +74,7 @@ body {
     user-select: none;
     padding: 0 !important;
     margin: 0;
-    background-color: rgb(24,38,59);
+    background-color: rgb(24, 38, 59);
 }
 
 #people-section {
@@ -127,7 +127,7 @@ div h2 {
     color: rgb(212, 187, 255);
     /*background-color: rgb(255, 255, 255);*/
     text-shadow: rgb(82, 0, 245) 2px 3px 2px;
-    background-color: rgb(24,38,59);
+    background-color: rgb(24, 38, 59);
 
 }
 
@@ -173,7 +173,7 @@ p {
     border-radius: 0.5rem;
     text-shadow: rgb(82, 0, 245) 2px 3px 2px;
     color: rgb(212, 187, 255);
-    background-color: rgb(24,38,59);
+    background-color: rgb(24, 38, 59);
     border: none;
 }
 
@@ -236,7 +236,7 @@ p {
     font-size: 2rem;
     font-family: Monospace, serif;
     border-radius: 0.5rem;
-    background-color: rgb(24,38,59);
+    background-color: rgb(24, 38, 59);
     border: none;
     text-shadow: rgb(82, 0, 245) -2px 3px 2px;
     color: rgb(212, 187, 255);
@@ -266,6 +266,7 @@ p {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+
 #arrow-left:hover {
 
     animation: grow;
@@ -348,7 +349,7 @@ p {
     width: 100%;
 }
 
-.button-logout:hover .logout{
+.button-logout:hover .logout {
     opacity: .9;
 }
 
@@ -360,10 +361,10 @@ p {
 .scrollable-div {
     overflow-x: hidden;
     overflow-y: auto;
-    text-align:justify;
-    min-height:850px;
-    height:850px;
-    max-height:100%;
+    text-align: justify;
+    min-height: 850px;
+    height: 850px;
+    max-height: 100%;
     max-width: 550px;
 }
 
