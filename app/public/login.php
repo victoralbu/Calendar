@@ -116,7 +116,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $pdo->prepare("INSERT INTO accounts (username, password) VALUES (:username, :password)");
         $stmt->bindParam(':username', $usernameField);
         $stmt->bindParam(':password', $passwordField);
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        }catch (\Exception $e){
+            echo "Try another username!";
+        }
+
 
         $id = $pdo->lastInsertId();
 
@@ -125,7 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bindParam(':firstname', $firstnameField);
             $stmt->bindParam(':lastname', $lastnameField);
             $stmt->bindParam(':id', $id);
-            $stmt->execute();
+            try {
+                $stmt->execute();
+            } catch (\Exception $e){
+
+            }
+
 
         } else {
             var_dump("Try again please!");
